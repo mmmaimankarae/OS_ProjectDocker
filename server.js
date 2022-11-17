@@ -50,7 +50,7 @@ app.get('/exchange/', async(req, res) => {
 app.get('/member/:idMEMBER', async(req, res) => {
     let tran = await dbcon.getConnection()
     await tran.beginTransaction()
-    let id = req.params.id;
+    let id = req.params.idMEMBER;
     
     if (!id){
         return res.status(400).send({ error: true, message: "Don't have information"})
