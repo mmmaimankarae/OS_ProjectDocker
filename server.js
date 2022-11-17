@@ -21,11 +21,11 @@ app.get('/', (req, res) => {
 
 /* connection to mysql database */
 let dbcon = mysql.createPool({
-    host: 'localhost',
-    port: '/tmp/mysql.sock',
-    user: 'root',
-    password: '',
-    database: 'API_Nodejs'
+    host: 'us-cdbr-east-06.cleardb.net',
+    //port: '/tmp/mysql.sock',
+    user: 'b8e55e2c3f8ffe',
+    password: '7ae7b734',
+    database: 'heroku_9ed6e2335f49705'
 })
 
 /* ดึงข้อมูลมาจากฐานข้อมูล */
