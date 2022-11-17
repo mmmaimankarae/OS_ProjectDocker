@@ -47,10 +47,10 @@ app.get('/exchange/', async(req, res) => {
 })
 
 /* ดึงข้อมูลมาจากฐานข้อมูลแบบระบุ */
-app.get('/member/:idMEMBER', async(req, res) => {
+app.get('/member/:id', async(req, res) => {
     let tran = await dbcon.getConnection()
     await tran.beginTransaction()
-    let id = req.params.idMEMBER;
+    let id = req.params.id;
     
     if (!id){
         return res.status(400).send({ error: true, message: "Don't have information"})
