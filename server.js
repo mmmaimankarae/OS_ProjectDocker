@@ -32,7 +32,7 @@ let dbcon = mysql.createPool({
 app.get('/member/', async(req, res) => {
     let tran = await dbcon.getConnection()
     await tran.beginTransaction()
-    let [row, field] = await tran.query('SELECT * FROM MEMBER')
+    let [row, field] = await tran.query('SELECT * FROM OURMEMBER')
     console.log(row)
     return res.send(row)
 })
@@ -55,18 +55,18 @@ app.get('/member/:idMEMBER', async(req, res) => {
     if (!id){
         return res.status(400).send({ error: true, message: "Don't have information"})
     } else {
-        /*dbcon.query('SELECT * FROM MEMBER WHERE idMEMBER = ?', id, (error, results, fields) => {
-            if (error) throw error;
+        // dbcon.query('SELECT * FROM OURMEMBER WHERE idMEMBER = ?', id, (error, results, fields) => {
+        //     if (error) throw error;
 
-            let message = "";
-            if (results == undefined || results.length == 0){
-                message = "ID not found";
-            } else {
-                message = "Successfully pull MEMBER data"
-            }
-            return res.send({data: results, message: message})
-        })*/
-        let [row, field] = await tran.query('SELECT * FROM MEMBER WHERE idMEMBER = ?', id)
+        //     let message = "";
+        //     if (results == undefined || results.length == 0){
+        //         message = "ID not found";
+        //     } else {
+        //         message = "Successfully pull MEMBER data"
+        //     }
+        //     return res.send({data: results, message: message})
+        // })
+        let [row, field] = await tran.query('SELECT * FROM ourmember WHERE idMEMBER = ?', id)
         console.log(row)
         return res.send(row)
     }
@@ -82,7 +82,7 @@ app.post('/member/newmember', async(req, res) => {
     if(!id || !sure || !last || !call) {
         return res.status(400).send({ error: true, message: "Please add the new member"});
     } else {
-        dbcon.query('INSERT INTO MEMBER (idMEMBER, surename, lastname, callme) VALUES(?, ?, ?, ?)', [id, sure, last, call], (error, results, fields) => {
+        dbcon.query('INSERT INTO OURMEMBER (idMEMBER, surename, lastname, callme) VALUES(?, ?, ?, ?)', [id, sure, last, call], (error, results, fields) => {
             if (error) throw error;
             return res.send({data: results, message: "Welcome new Member"})
         })
@@ -120,7 +120,7 @@ app.delete('/member/delete', (req, res) => {
     if(!id) {
         return res.status(400).send({error: true, message: "Please Enter again"});
     } else {
-        dbcon.query('DELETE FROM MEMBER WHERE idMEMBER = ?', id, (error, results, fields) => {
+        dbcon.query('DELETE FROM OURMEMBER WHERE idMEMBER = ?', id, (error, results, fields) => {
             if (error) throw error;
 
             let message = "";
