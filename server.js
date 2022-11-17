@@ -2,7 +2,10 @@ let express = require('express') //require = เรียกใช้ = insert d
 let app = express(); // เรียกใช้express
 let bodyParser = require('body-parser');
 let mysql = require('mysql2/promise'); // ตรงนี้จะต่างกันแล้วแต่คนเลือกใช้แอปเขียน dbs
+let dotenv = require('dotenv');
+dotenv.config();
 
+let port = process.env.PORT || 8000;
 app.use(bodyParser.json()); // requestที่รับเข้ามาต้องเป็นไฟล์.jsonเท่านั้น
 app.use(bodyParser.urlencoded({ extended: true })) // เซต url
 
@@ -44,7 +47,7 @@ app.get('/exchange/', async(req, res) => {
 })
 
 /* ดึงข้อมูลมาจากฐานข้อมูลแบบระบุ */
-app.get('/member/:id', async(req, res) => {
+app.get('/member/:idMEMBER', async(req, res) => {
     let tran = await dbcon.getConnection()
     await tran.beginTransaction()
     let id = req.params.id;
@@ -131,7 +134,7 @@ app.delete('/member/delete', (req, res) => {
     }
 })
 
-app.listen(8000, () => { // เซตport
+app.listen(port, () => { // เซตport
     console.log('Node App is running on port 8000');
 })
 
